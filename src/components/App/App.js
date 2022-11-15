@@ -9,19 +9,29 @@ export class App extends Component {
     super(props);
     this.state = {
       urls: [],
+      err: "",
     };
   }
 
   componentDidMount() {
-    getUrls().then((data) => this.setState({ urls: data.urls }));
+    getUrls()
+      .then((data) => this.setState({ urls: data.urls }))
+      .catch((err) => this.setState({ err: err.message }));
   }
 
   addUrl = () => {
-    getUrls().then((data) => this.setState({ urls: data.urls }));
+    getUrls()
+      .then((data) => this.setState({ urls: data.urls }))
+      .catch((err) => this.setState({ err: err.message }));
   };
 
   render() {
-    return (
+    return this.state.err ? (
+      <div>
+        <h1>Sorry something went wrong</h1>
+        <p>Try again</p>
+      </div>
+    ) : (
       <main className="App">
         <header>
           <h1>URL Shortener</h1>

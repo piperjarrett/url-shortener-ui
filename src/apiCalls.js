@@ -4,10 +4,12 @@ export const getUrls = () => {
   );
 };
 
-export const postUrls = (newUrl) => {
-  fetch("http://localhost:3001/api/v1/urls", {
+export const postUrls = async (newUrl) => {
+  const response = await fetch("http://localhost:3001/api/v1/urls", {
     method: "POST",
-    headers: { "content-type": "application/json" },
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify(newUrl),
   });
+  const data = await response.json();
+  return data;
 };

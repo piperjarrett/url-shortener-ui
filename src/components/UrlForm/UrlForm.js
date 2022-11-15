@@ -26,10 +26,10 @@ class UrlForm extends Component {
       short_url: `http://localhost:3001/useshorturl/${newId}`,
       title: this.state.title,
     };
-    console.log(newUrl);
+
     if (newUrl.id && newUrl.long_url && newUrl.short_url && newUrl.title) {
       postUrls(newUrl);
-      this.props.addUrl();
+      this.props.addUrl(newUrl);
       this.clearInputs();
     } else {
       this.setState({ err: "Oops, missing a input!" });
