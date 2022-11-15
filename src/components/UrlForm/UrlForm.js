@@ -8,10 +8,12 @@ class UrlForm extends Component {
     this.state = {
       title: "",
       urlToShorten: "",
+      err: "",
     };
   }
 
   handleNameChange = (e) => {
+    this.setState({ err: "" });
     this.setState({ [e.target.name]: e.target.value });
   };
 
@@ -24,9 +26,14 @@ class UrlForm extends Component {
       short_url: `http://localhost:3001/useshorturl/${newId}`,
       title: this.state.title,
     };
-    postUrls(newUrl);
-    this.clearInputs();
-    this.props.addUrl();
+    console.log(newUrl);
+    if (newUrl.id && newUrl.long_url && newUrl.short_url && newUrl.title) {
+      postUrls(newUrl);
+      this.props.addUrl();
+      this.clearInputs();
+    } else {
+      this.setState({ err: "Oops, missing a input!" });
+    }
   };
 
   clearInputs = () => {
@@ -34,7 +41,26 @@ class UrlForm extends Component {
   };
 
   render() {
-    return (
+    return this.state.err ? (
+      <form>
+        <input
+          type="text"
+          placeholder="Title..."
+          name="title"
+          value={this.state.title}
+          onChange={(e) => this.handleNameChange(e)}
+        />
+        <input
+          type="text"
+          placeholder="URL to Shorten..."
+          name="urlToShorten"
+          value={this.state.urlToShorten}
+          onChange={(e) => this.handleNameChange(e)}
+        />
+        <button onClick={(e) => this.handleSubmit(e)}>Shorten Please!</button>
+        <p>{this.state.err}</p>
+      </form>
+    ) : (
       <form>
         <input
           type="text"
