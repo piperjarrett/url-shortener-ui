@@ -4,7 +4,7 @@ import { postUrls } from "../../apiCalls";
 class UrlForm extends Component {
   constructor(props) {
     super();
-    // this.props = props;
+    this.props = props;
     this.state = {
       title: "",
       urlToShorten: "",

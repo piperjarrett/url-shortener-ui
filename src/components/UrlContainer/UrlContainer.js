@@ -1,8 +1,7 @@
 import React from "react";
 import "./UrlContainer.css";
 
-
-const UrlContainer = (urls) => {
+const UrlContainer = ( urls) => {
   const urlEls = urls.urls.map((url) => {
     return (
       <div className="url" key={url.id}>
